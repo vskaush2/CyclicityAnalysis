@@ -1,4 +1,4 @@
-# Cyclicity Analysis of Time-Series
+# Cyclicity Analysis of Time-Series Data
 This repository contains a working implementation of Cyclicity Analysis, which is a pattern recognition technique for analyzing multiple time-series.
 
 ## Downloading Requirements
