@@ -13,19 +13,21 @@ def compute_oriented_area(df, col1, col2):
     return oriented_area
 
 def get_accumulated_oriented_area_df(df, col1, col2):
-    df_diff = df[[col1, col2]].diff().dropna()
-    first_oriented_area_change_time = df_diff[(df_diff[col1] != 0) & (df_diff[col2] != 0)].index[0]
-    oriented_area_change_times = df_diff[(df_diff[col1] != 0) | (df_diff[col2] != 0)].loc[first_oriented_area_change_time:].index
     accumulated_oriented_area_df = pd.DataFrame(columns=['Accumulated Oriented Area'], index=df.index)
-
-    accumulated_oriented_area_df['Accumulated Oriented Area'].loc[oriented_area_change_times] = [compute_oriented_area(df.loc[:time], col1, col2)
+    df_diff = df[[col1, col2]].diff().dropna()
+    try:
+        first_oriented_area_change_time = df_diff[(df_diff[col1] != 0) & (df_diff[col2] != 0)].index[0]
+        oriented_area_change_times = df_diff[(df_diff[col1] != 0) | (df_diff[col2] != 0)].loc[first_oriented_area_change_time:].index
+        accumulated_oriented_area_df['Accumulated Oriented Area'].loc[oriented_area_change_times] = [compute_oriented_area(df.loc[:time], col1, col2)
                                                                                                  for time in oriented_area_change_times]
     # Accumulated Oriented Areas corresponding to timestamps t where either (x_t- x_{t-1}) is nonzero or (y_t- y_{t-1}) is nonzero.
 
-    accumulated_oriented_area_df.fillna(method='ffill', inplace=True)
- # If the timestamp t has a null value, we set it equal to the latest available timestamp s before t having a non-null value.
-    accumulated_oriented_area_df.fillna(0, inplace=True)
-    # All remaining timestamps with null values are set equal to 0.
+        accumulated_oriented_area_df.fillna(method='ffill', inplace=True) # If the timestamp t has a null value, we set it equal to the latest available timestamp s before t having a non-null value.
+
+        accumulated_oriented_area_df.fillna(0, inplace=True) # All remaining timestamps with null values are set equal to 0.
+    except:
+        accumulated_oriented_area_df.fillna(0, inplace=True)
+        # If (x_t- x_{t-1}) is zero for all t or (y_t- y_{t-1}) is zero for all t, then accumulated oriented area is 0.
     return accumulated_oriented_area_df
 
 def plot_oriented_polygon(df, col1, col2, figsize=(5,5)):
@@ -68,11 +70,6 @@ class CyclicityAnalysis:
         self.df = df
         self.lead_lag_df = self.get_lead_lag_df()
         self.sorted_lead_lag_df, self.cyclic_order, self.sorted_eigvals, self.sorted_dominant_eigvec_components= self.get_cyclic_order()
-
-
-
-
-
 
     def get_lead_lag_df(self):
         unique_distinct_pairs = itertools.combinations(self.df.columns, r=2)
