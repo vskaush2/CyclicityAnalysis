@@ -3,7 +3,7 @@ This repository contains a working implementation of Cyclicity Analysis, which i
 
 ## Downloading Requirements
 - Download PyCharm (free edition) from https://www.jetbrains.com/pycharm/.
-- Download the latest version of Python 3 from https://www.python.org/downloads/.
+- Download Python 3.10 from https://www.python.org/downloads/.
 
 ## Importing Project
 - Open PyCharm and select `Get from VCS`.
@@ -12,8 +12,9 @@ This repository contains a working implementation of Cyclicity Analysis, which i
 - Download the project.
 
 ## Installing Project Dependencies Automatically
-- You may be directly prompted by PyCharm to create a Python virtual environment based on the `requirements.txt` file. 
-- Follow the onscreen instructions to do so. 
+- You may be prompted by PyCharm to install a Virtual Environment based on the `requirements.txt` file.
+- Follow the onscreen instructions to do so.
+- Make sure you specify your installed Python 3 for creating the Virtual Environment.
 
 ## Installing Project Dependencies Manually
 - Open PyCharm Settings and locate the `Project: CyclicityAnalysis` pane.
