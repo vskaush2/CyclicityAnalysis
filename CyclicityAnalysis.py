@@ -138,7 +138,7 @@ class CyclicityAnalysis:
         axs[-1].vlines(0, -1, 1, color='black')
         for i in range(len(self.sorted_dominant_eigvec_components)):
             component=(np.real(self.sorted_dominant_eigvec_components[i]), np.imag(self.sorted_dominant_eigvec_components[i]))
-            axs[-1].annotate(self.cyclic_order[i], component , size=20) # Cyclic Order Index Annotation
+            axs[-1].annotate(list(reversed(self.cyclic_order))[i], component , size=20) # Plotting Principal Dominant Eigenvector Components
 
 
     def get_topN_leader_follower_pairs(self,N=10):
