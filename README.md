@@ -5,7 +5,7 @@ This repository contains a working implementation of Cyclicity Analysis, which i
 - Download Python 3.10 from https://www.python.org/downloads/.
 
 ## Installing the Package
-- Simply `pip3 install git+<Insert Link to this Github Repo>`
+- Run the command `pip3 install git+https://github.com/vskaush2/CyclicityAnalysis` in Terminal or Command Prompt.
 
 ## Running the Project
 - In a Python console, first enter `from CyclicityAnalysis import *`
