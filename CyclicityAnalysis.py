@@ -181,7 +181,7 @@ class CyclicityAnalysis:
 
         try:
             oriented_areas_dict = dict(sorted(oriented_areas_dict.items(),key=lambda item: item[-1],reverse=True))
-            topN_leader_follower_pairs = oriented_areas_dict[:N]
+            topN_leader_follower_pairs = list(oriented_areas_dict.keys())[:N]
             return topN_leader_follower_pairs
         except:
             return []
