@@ -7,7 +7,6 @@ with open('requirements.txt') as f:
 setup(
     name='CyclicityAnalysis',
     version='1.0.0',
-    packages=['CyclicityAnalysis'],
     url='https://github.com/vskaush2/CyclicityAnalysis',
     license='',
     author='Vivek Kaushik',
