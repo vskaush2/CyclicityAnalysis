@@ -22,8 +22,6 @@ def get_accumulated_oriented_area_df(df, col1, col2):
         first_oriented_area_change_time=list(sorted(first_change_times , key =lambda t: df_index_dict[t]))[-1]
         # First time oriented area changes from 0 is the latest time when either x_{t}-x_{t-1} first becomes nonzero or y_{t}-y_{t-1} first becomes nonzero.
 
-
-
         oriented_area_change_times = df_diff[(df_diff[col1] != 0) | (df_diff[col2] != 0)].loc[first_oriented_area_change_time:].index
         accumulated_oriented_area_df['Accumulated Oriented Area'].loc[oriented_area_change_times] = [compute_oriented_area(df.loc[:time], col1, col2)
                                                                                                  for time in oriented_area_change_times]
@@ -62,7 +60,7 @@ def plot_leader_follower_relationship(df, leader, follower, figsize=(20,10), inc
         ax.legend(prop={'size': 15}, loc='upper right')
 
 
-def plot_df(df, title='Plot', figsize=(20,10), linewidth=4.0, use_cmap=False):
+def plot_df(df, title='', figsize=(20,10), linewidth=4.0, use_cmap=True):
     fig,ax=plt.subplots(figsize=figsize)
     ax.set_title(title, size=20)
     if use_cmap:
@@ -73,9 +71,10 @@ def plot_df(df, title='Plot', figsize=(20,10), linewidth=4.0, use_cmap=False):
     ax.legend(prop={'size': 15}, loc='upper right')
 
 class CyclicityAnalysis:
+
     def __init__(self,df):
-        self.df = df
-        self.lead_lag_df = self.get_lead_lag_df()
+        self.df = df # Dataframe to Pass in
+        self.lead_lag_df = self.get_lead_lag_df() # Lead Lag Matrix
         self.sorted_lead_lag_df,  self.cyclic_order, self.cyclic_order_indices, self.sorted_eigvals, self.sorted_dominant_eigvec_components= self.get_cyclic_order()
 
     def get_lead_lag_df(self):
@@ -171,8 +170,6 @@ class CyclicityAnalysis:
                                  arrowprops=dict(arrowstyle="->"), size=60)
 
 
-
-
     def get_topN_leader_follower_pairs(self,N=10):
         all_pairs = itertools.product(self.lead_lag_df.columns, repeat=2)
         oriented_areas = self.lead_lag_df.values.flatten()
@@ -180,7 +177,7 @@ class CyclicityAnalysis:
         oriented_areas_dict = dict([item for item in oriented_areas_dict.items() if item[-1]>0]) # Only consider positive oriented areas
 
         try:
-            oriented_areas_dict = dict(sorted(oriented_areas_dict.items(),key=lambda item: item[-1],reverse=True))
+            oriented_areas_dict = dict(sorted(oriented_areas_dict.items(),key=lambda item: item[-1], reverse=True))
             topN_leader_follower_pairs = list(oriented_areas_dict.keys())[:N]
             return topN_leader_follower_pairs
         except:
