@@ -16,10 +16,10 @@ def get_accumulated_oriented_area_df(df, col1, col2):
     accumulated_oriented_area_df = pd.DataFrame(columns=['Accumulated Oriented Area'], index=df.index)
     df_diff = df[[col1, col2]].diff().dropna()
     try:
-        df_index_dict = dict(enumerate(df.index))
-        col1_first_change_time = df_diff[(df_diff[col1] != 0)].index[0]
-        col2_first_change_time = df_diff[(df_diff[col1] != 0)].index[0]
-        first_oriented_area_change_time=list(sorted([col1_first_change_time, col2_first_change_time], key =lambda t: df_index_dict[t]))[-1]
+        keys,vals=dict(enumerate(df.index)).keys(), dict(enumerate(df.index)).values()
+        df_index_dict = dict(zip(vals,keys))
+        first_change_times = df_diff[(df_diff[col1] != 0)].index[0], df_diff[(df_diff[col2] != 0)].index[0]
+        first_oriented_area_change_time=list(sorted(first_change_times , key =lambda t: df_index_dict[t]))[-1]
         # First time oriented area changes from 0 is the latest time when either x_{t}-x_{t-1} first becomes nonzero or y_{t}-y_{t-1} first becomes nonzero.
 
 
