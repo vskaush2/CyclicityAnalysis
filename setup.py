@@ -1,9 +1,4 @@
 from setuptools import setup
-import os
-
-with open('requirements.txt') as f:
-    required = f.read().splitlines()
-
 setup(
     name='CyclicityAnalysis',
     version='1.0.0',
@@ -13,5 +8,5 @@ setup(
     author='Vivek Kaushik',
     author_email='vskaush2@illinois.edu',
     description='Runs Cyclicity Analysis on a Collection of Time Series',
-    install_requires=required,
+    install_requires=['numpy','pandas','plotly','matplotlib'],
 )
