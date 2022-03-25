@@ -9,5 +9,5 @@ setup(
     author_email='vskaush2@illinois.edu',
     description='Runs the Cyclicity Analysis procedure on a Collection of Time Series',
     install_requires=['numpy','pandas','plotly','matplotlib'],
-    python_requires=">=3.10"
+    python_requires=">=3.7"
 )
